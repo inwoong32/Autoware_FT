@@ -15,7 +15,7 @@
 #if defined(ROS_DISTRO_FOXY) || defined(ROS_DISTRO_GALACTIC)
 #include <angles/angles.h>  //Galactic
 #else
-#include <angles/angles/angles.h>  //Humble
+#include <angles/angles.h>  //Humble ##BUGFIX (angles/angles/angles.h -> angles/angles.h)
 #endif
 
 #include "nebula_common/point_types.hpp"
