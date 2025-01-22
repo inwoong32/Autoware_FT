@@ -1,0 +1,28 @@
+/**:
+  ros__parameters:
+    module_list:
+    # behavior_path_planner module
+      - "lane_change_left"
+      - "lane_change_right"
+      - "avoidance_by_lane_change_left"
+      - "avoidance_by_lane_change_right"
+      - "goal_planner"
+      - "start_planner"
+      - "avoidance_left"
+      - "avoidance_right"
+    # behavior_velocity_planner module
+      - "detection_area"
+
+    default_enable_list:
+    # behavior_path_planner module
+      - "lane_change_left"
+      - "lane_change_right"
+      - "avoidance_by_lane_change_left"
+      - "avoidance_by_lane_change_right"
+      - "goal_planner"
+      - "start_planner"
+      - "avoidance_left"
+      - "avoidance_right"
+    # behavior_velocity_planner module
+      - "detection_area"
+      - "no_stopping_area"

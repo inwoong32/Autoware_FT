@@ -1,0 +1,93 @@
+/**:
+  ros__parameters:
+    # motion state constraints
+    # 운동 상태 제약조건
+    max_velocity: 22.2     # max velocity limit [m/s]
+    # max_velocity: 8.3     # max velocity limit [m/s]
+                            # 최대 속도 제한 [m/s] 
+    stop_decel: 0.0         # deceleration at a stop point[m/ss]
+                            # 정지점에서의 감속 [m/s]
+
+    # external velocity limit parameter
+    # 외부 속도 제한 매개변수
+    margin_to_insert_external_velocity_limit: 0.3   # margin distance to insert external velocity limit [m]
+                                                    # 외부 속도 제한을 삽입할 여유 거리 [m]
+
+    # -- curve parameters  --
+    # 커브 구간 매개변수
+    # common parameters
+    # 공통의 매개변수 
+    curvature_calculation_distance: 5.0   # distance of points while curvature is calculating for the steer rate and 
+                                          # lateral acceleration limit [m]
+                                          # 곡률이 조향각과 횡방향 가속도 제한을 계산하는 동안 점들의 거리 [m]
+    
+    # lateral acceleration limit parameters
+    # 횡방향 가속도 제한 매개변수
+    enable_lateral_acc_limit: true     # To toggle the lateral acc filter on and off. You can switch it dynamically at runtime.
+    # max_lateral_accel: 0.5                      # max lateral acceleration limit [m/ss]
+    max_lateral_accel: 2.0                      # max lateral acceleration limit [m/ss]
+                                                # 최대 횡방향 가속도 제한 [m/ss]
+    # min_curve_velocity: 11.0                    # min velocity at lateral acceleration limit and steering angle rate limit [m/s]
+    min_curve_velocity: 8.3                    # min velocity at lateral acceleration limit and steering angle rate limit [m/s]
+                                                # 횡방향 가속도 제한과 조향각 속도 제한에서의 최소 속도 [m/s]
+    decel_distance_before_curve: 3.5            # slow speed distance before a curve for lateral acceleration limit [m]
+                                                # 횡방향 가속도 제한을 위한 곡선 전의 느린 속도로 주행하는 거리 [m]
+    decel_distance_after_curve: 2.0             # slow speed distance after a curve for lateral acceleration limit [m]
+                                                # 횡방향 가속도 제한을 위한 곡선 이후의 느린 속도로 주행하는 거리 [m]
+    min_decel_for_lateral_acc_lim_filter: -2.5  # deceleration limit applied in the lateral acceleration filter to avoid sudden braking [m/ss]
+                                                # 급제동을 피하기 위해 횡가속도 필터에 적용되는 감속 제한 [m/ss]
+    
+    # steering angle rate limit parameters
+    # 조향각 속도 제한 매개변수
+    enable_steering_rate_limit: true         # To toggle the steer rate filter on and off. You can switch it dynamically at runtime.
+    max_steering_angle_rate: 40.0            # maximum steering angle rate [degree/s]
+    resample_ds: 0.1                         # distance between trajectory points [m]
+    curvature_threshold: 0.02                # if curvature > curvature_threshold, steeringRateLimit is triggered [1/m]
+
+    # engage & replan parameters
+    # 시작 & 재계획 매개변수
+    replan_vel_deviation: 5.53          # velocity deviation to replan initial velocity [m/s]
+                                        # 현재 속도와 계획 속도의 차이가 해당 값보다 크면 replan 함 [m/s]
+    engage_velocity: 0.25               # engage velocity threshold [m/s] (if the trajectory velocity is higher than this value, use this velocity for engage vehicle speed)
+    engage_acceleration: 0.1            # engage acceleration [m/ss] (use this acceleration when engagement)
+    engage_exit_ratio: 0.5              # exit engage sequence to normal velocity planning when the velocity exceeds engage_exit_ratio x engage_velocity.
+    stop_dist_to_prohibit_engage: 0.5   # if the stop point is in this distance, the speed is set to 0 not to move the vehicle [m]
+                                        # 만약 정지 지점이 해당 거리 안에 있으면 속도를 0으로 셋팅함 [m/s]
+    # stop velocity
+    # 정지 속도
+    stopping_velocity: 2.778  # change target velocity to this value before v=0 point [m/s]
+    stopping_distance: 0.0    # distance for the stopping_velocity [m]. 0 means the stopping velocity is not applied.
+
+    # path extraction parameters
+    # 경로 추출 매개변수
+    extract_ahead_dist: 200.0         # forward trajectory distance used for planning [m]
+                                      # 계획에 사용되는 전방의 거리 [m]
+    extract_behind_dist: 5.0          # backward trajectory distance used for planning [m]
+                                      # 계획에 사용되는 후방의 거리 [m]
+    delta_yaw_threshold: 1.0472       # Allowed delta yaw between ego pose and trajectory pose [radian]
+                                      # 차량과 궤적 사이의 허용되는 yaw 값 [radian] = [60deg]
+
+    # resampling parameters for optimization
+    # 최적화를 위한 매개변수 재샘플링
+    max_trajectory_length: 200.0        # max trajectory length for resampling [m]
+    min_trajectory_length: 180.0        # min trajectory length for resampling [m]
+    resample_time: 2.0                  # resample total time for dense sampling [s]
+    dense_resample_dt: 0.2              # resample time interval for dense sampling [s]
+    dense_min_interval_distance: 0.1    # minimum points-interval length for dense sampling [m]
+    sparse_resample_dt: 0.5             # resample time interval for sparse sampling [s]
+    sparse_min_interval_distance: 4.0   # minimum points-interval length for sparse sampling [m]
+
+    # resampling parameters for post process
+    # 이후 과정의 리샘플링 매개변수 : 다음 노드의 요구사항과 동일해야 하므로 수정 x 
+    post_max_trajectory_length: 300.0        # max trajectory length for resampling [m]
+    post_min_trajectory_length: 30.0         # min trajectory length for resampling [m]
+    post_resample_time: 10.0                 # resample total time for dense sampling [s]
+    post_dense_resample_dt: 0.1              # resample time interval for dense sampling [s]
+    post_dense_min_interval_distance: 0.1    # minimum points-interval length for dense sampling [m]
+    post_sparse_resample_dt: 0.1             # resample time interval for sparse sampling [s]
+    post_sparse_min_interval_distance: 1.0   # minimum points-interval length for sparse sampling [m]
+
+    # system
+    over_stop_velocity_warn_thr: 1.389       # used to check if the optimization exceeds the input velocity on the stop point
+
+    plan_from_ego_speed_on_manual_mode: true  # planning is done from ego velocity/acceleration on MANUAL mode. This should be true for smooth transition from MANUAL to AUTONOMOUS, but could be false for debugging.
