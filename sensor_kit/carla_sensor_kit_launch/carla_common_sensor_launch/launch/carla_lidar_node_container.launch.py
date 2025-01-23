@@ -100,33 +100,6 @@ def launch_setup(context, *args, **kwargs):
             name="crop_box_filter_mirror",
             remappings=[
                 ("input", "self_cropped/pointcloud_ex"),
-                ("output", "mirror_cropped/pointcloud_ex"),
-            ],
-            parameters=[cropbox_parameters],
-            extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
-        )
-    )
-
-    nodes.append(
-        ComposableNode(
-            package="topic_tools",
-            plugin="topic_tools::RelayNode",
-            name="pointcloud_distortion_relay",
-            remappings=[
-                ("input", "mirror_cropped/pointcloud_ex"),
-                ("output", "rectified/pointcloud_ex"),
-            ],
-            extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
-        )
-    )
-
-    nodes.append(
-        ComposableNode(
-            package="topic_tools",
-            plugin="topic_tools::RelayNode",
-            name="pointcloud_outlier_filter_relay",
-            remappings=[
-                ("input", "rectified/pointcloud_ex"),
                 ("output", "pointcloud"),
             ],
             parameters=[cropbox_parameters],
@@ -134,8 +107,23 @@ def launch_setup(context, *args, **kwargs):
         )
     )
 
+    nodes.append(
+        ComposableNode(
+            package="topic_tools",
+            plugin="topic_tools::RelayNode",
+            name="pointcloud_center_relay",
+            namespace="",
+            parameters=[
+                {"input_topic": "pointcloud"},
+                {"output_topic": "/sensing/lidar/center/pointcloud"}
+            ],
+            extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
+            condition=IfCondition(LaunchConfiguration("center_relay")),
+        )
+    )
+
     container = ComposableNodeContainer(
-        name=LaunchConfiguration("container_name"),
+        name="carla_lidar_node_container",
         namespace="pointcloud_preprocessor",
         package="rclcpp_components",
         executable=LaunchConfiguration("container_executable"),
@@ -181,6 +169,7 @@ def generate_launch_description():
     add_launch_arg("use_intra_process", "False", "use ROS2 component container communication")
     add_launch_arg("use_pointcloud_container", "false")
     add_launch_arg("container_name", "velodyne_node_container")
+    add_launch_arg("center_relay", "False")
 
     set_container_executable = SetLaunchConfiguration(
         "container_executable",

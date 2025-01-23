@@ -2,6 +2,7 @@
 <launch>
   <arg name="data_path" default="/autoware/autoware_data" description="packages data and artifacts directory path"/>
   <arg name="perception_mode" default="lidar" description="select perception mode. camera_lidar_radar_fusion, camera_lidar_fusion, lidar_radar_fusion, lidar, radar"/>
+  <!-- <arg name="perception_mode" default="camera_lidar_fusion" description="select perception mode. camera_lidar_radar_fusion, camera_lidar_fusion, lidar_radar_fusion, lidar, radar"/> -->
   <arg name="traffic_light_recognition/enable_fine_detection" default="false" description="enable traffic light fine detection"/>
   <arg name="namespace1" default="traffic_light" description="traffic light recognition namespace1"/>
   <arg name="occupancy_grid_map_method" default="pointcloud_based_occupancy_grid_map" description="options: pointcloud_based_occupancy_grid_map, laserscan_based_occupancy_grid_map"/>
@@ -12,11 +13,14 @@
     default="obstacle_pointcloud"
     description="options: obstacle_pointcloud, occupancy_grid (occupancy_grid_map_method must be laserscan_based_occupancy_grid_map)"
   />
-  
-  <!-- <arg name="img_topic" default="/carla/ego_vehicle/rgb_front/image" />
+  \
+  <!-- <INWOONG> -->
+  <arg name="img_topic" default="/carla/ego_vehicle/rgb_front/image" />
   <arg name="img_info_topic" default="/carla/ego_vehicle/rgb_view/camera_info"/>
   <arg name="image_number" default="1" description="choose image raw number(1-8)"/>
-  <arg name="yolo_type" default="yolov5s" description="choose yolo version"/> -->
+  <arg name="yolo_type" default="yolov5s" description="choose yolo version"/>
+  <arg name="centerpoint_model_name" default="centerpoint" description="choose yolo version"/>
+  
   
   <include file="$(find-pkg-share tier4_perception_launch)/launch/perception.launch.xml">
     <arg name="mode" value="$(var perception_mode)"/>
@@ -33,6 +37,7 @@
     <arg name="image_raw0" value="$(var img_topic)"/>
     <arg name="camera_info0" value="$(var img_info_topic)"/>
     <arg name="image_number" value="$(var image_number)"/>
+    <arg name="centerpoint_model_name" value="$(var centerpoint_model_name)"/>
 
     <!-- object recognition -->
     <arg
