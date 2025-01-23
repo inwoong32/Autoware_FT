@@ -18,8 +18,8 @@
   <arg name="sensing"           default="1"/>
   <arg name="localization"      default="1"/>
   <arg name="perception"        default="1"/>
-  <arg name="planning"          default="0"/>
-  <arg name="control"           default="0"/>
+  <arg name="planning"          default="1"/>
+  <arg name="control"           default="1"/>
   <arg name="rviz"              default="1"/>
   
   <!-- Tools -->
