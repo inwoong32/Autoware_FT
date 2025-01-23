@@ -13,7 +13,7 @@
 
   <include file="$(find-pkg-share tier4_control_launch)/launch/control.launch.py">
     <!-- option -->
-    <arg name="vehicle_param_file" value="$(var aw_config_dir)/vehicle_info.param.yaml"/>
+    <arg name="vehicle_param_file" value="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml"/>
     <arg name="vehicle_id" value="$(var vehicle_id)"/>
     <arg name="enable_obstacle_collision_checker" value="false"/>
     <arg name="trajectory_follower_node_param_path" value="$(var aw_config_dir)/control/trajectory_follower/trajectory_follower_node.param.yaml"/>
