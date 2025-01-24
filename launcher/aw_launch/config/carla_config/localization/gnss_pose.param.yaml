@@ -1,0 +1,10 @@
+/**:
+  ros__parameters:
+    base_frame: base_link
+    gnss_base_frame: gnss_fix
+    gnss_frame: gnss_link
+    map_frame: map
+    buff_epoch: 2
+    use_gnss_ins_orientation: false
+    gnss_pose_pub_method: 0
+    # gnss_pose_pub_method: 1

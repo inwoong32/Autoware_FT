@@ -7,6 +7,8 @@
 
   <arg name="map_path"            default="/autoware/autoware_map/carla" description="맵 경로"/>
 
+  <arg name="pose_source" default="ndt" description="select pose_estimator: ndt, gnss, yabloc, eagleye"/>
+
   <arg name="lanelet2_map_file"   default="lanelet2_map.osm" description="벡터 맵 파일 이름"/>
   <arg name="pointcloud_map_file" default="pointcloud_map.pcd" description="pcd 맵 파일 이름"/>
   <arg name="projector_info_file" default="map_projection_info.yaml" description="projection 파일 이름"/>
@@ -20,7 +22,7 @@
   <arg name="perception"        default="1"/>
   <arg name="planning"          default="1"/>
   <arg name="control"           default="1"/>
-  <arg name="rviz"              default="1"/>
+  <arg name="rviz"              default="0"/>
   
   <!-- Tools -->
   <arg name="rviz_config" default="$(find-pkg-share aw_launch)/rviz/autoware.rviz" description="rviz config"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <let name="loc_config_path" value="$(find-pkg-share aw_launch)/config/carla_config/localization"/>
-  <arg name="pose_source" default="ndt" description="select pose_estimator: ndt, yabloc, eagleye"/>
+  <arg name="pose_source" default="ndt" description="select pose_estimator: ndt, gnss, yabloc, eagleye"/>
   <arg name="twist_source" default="gyro_odom" description="select twist_estimator. gyro_odom, eagleye"/>
   <arg name="input_pointcloud" default="/sensing/lidar/center/pointcloud" description="The topic will be used in the localization util module"/>
 
@@ -21,6 +21,8 @@
       <arg name="localization_error_monitor_param_path" value="$(var loc_config_path)/localization_error_monitor.param.yaml"/>
       <arg name="ekf_localizer_param_path" value="$(var loc_config_path)/ekf_localizer.param.yaml"/>
       <arg name="pose_initializer_param_path" value="$(var loc_config_path)/pose_initializer.param.yaml"/>
+      <arg name="gnss_pose_param_file_path" value="$(var loc_config_path)/gnss_pose.param.yaml"/>
+
 
       <!-- parameter paths for ndt -->
       <arg name="ndt_scan_matcher_param_path" value="$(var loc_config_path)/ndt_scan_matcher.param.yaml"/>

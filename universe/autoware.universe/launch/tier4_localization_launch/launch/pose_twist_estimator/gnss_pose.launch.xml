@@ -1,0 +1,31 @@
+<launch>
+  <arg name="launch_driver" default="true"/>
+  <arg name="gnss_topic_name" default="/sensor/gnss"/>
+  <arg name="coordinate_system" default="3" description="0:UTM, 1:MGRS, 2:PLANE"/>
+
+  <arg name="gnss_pose_param_file_path" default="$(find-pkg-share $(var sensor_model)_launch)/config/sensing/gnss_pose.param.yaml"/>
+
+  <group>
+    <push-ros-namespace namespace="gnss_pose"/>
+
+    <!-- Switch topic name -->
+
+    <let name="orientation_topic_name" value="/autoware_orientation"/>
+
+    <!-- NavSatFix to MGRS Pose -->
+    <include file="$(find-pkg-share gnss_poser)/launch/gnss_poser.launch.xml">
+      <arg name="input_topic_fix" value="$(var gnss_topic_name)"/>
+      <arg name="input_topic_orientation" value="$(var orientation_topic_name)"/>
+
+      <arg name="output_topic_gnss_pose" value="/localization/pose_estimator/pose"/>
+      <arg name="output_topic_gnss_pose_cov" value="/localization/pose_estimator/pose_with_covariance"/>
+      <arg name="output_topic_gnss_fixed" value="/localization/pose_estimator/gnss_fixed"/>
+
+      <arg name="coordinate_system" value="$(var coordinate_system)"/>
+      <arg name="use_gnss_ins_orientation" value="true"/>
+
+      <arg name="param_file" value="$(var gnss_pose_param_file_path)"/>
+      <arg name="gnss_frame" value="gnss_link"/>
+    </include>
+  </group>
+</launch>
