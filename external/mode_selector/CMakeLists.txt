@@ -6,7 +6,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(autoware_auto_control_msgs REQUIRED)
 
-include_directories(include)
+# include_directories(include)
 
 add_executable(${PROJECT_NAME} 
   src/selector.cpp
@@ -25,7 +25,7 @@ install(TARGETS
 
 install(DIRECTORY
   launch
-  config
+  # config
   DESTINATION share/${PROJECT_NAME}/
 )
 
