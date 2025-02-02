@@ -3,7 +3,7 @@
   <arg name="pose_source"      default="ndt"/>
 
   <group>
-    <push-ros-namespace namespace="orin_bridge"/>
+    <push-ros-namespace namespace="orin_bridge/$(var pose_source)"/>
 
     <group>
       <push-ros-namespace namespace="sensor"/>
