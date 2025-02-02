@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-
-  <arg name="mode_lidar"      default="0"/>
-  <arg name="mode_gnss"       default="0"/>
+  <arg name="pose_source"      default="ndt"/>
 
   <group>
     <push-ros-namespace namespace="orin_bridge"/>
@@ -72,7 +70,7 @@
     <group>
       <push-ros-namespace namespace="control"/>
 
-      <group if="$(var mode_lidar)">
+      <group if="$(eval &quot;'$(var pose_source)'=='ndt'&quot;)">
         <node pkg="topic_tools" exec="relay" name="control_cmd">
           <param name="input_topic" value="/control/command/control_cmd/raw"/>
           <param name="output_topic" value="/control/command/control_cmd/lidar"/>
@@ -80,7 +78,7 @@
         </node>
       </group>
 
-      <group if="$(var mode_gnss)">
+      <group if="$(eval &quot;'$(var pose_source)'=='gnss'&quot;)">
         <node pkg="topic_tools" exec="relay" name="control_cmd">
           <param name="input_topic" value="/control/command/control_cmd/raw"/>
           <param name="output_topic" value="/control/command/control_cmd/gnss"/>
